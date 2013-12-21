@@ -1,6 +1,6 @@
 # Gulp prompt
 
-Add interaction to gulp tasks
+Add interaction to gulp tasks.
 
 ## Confirm
 

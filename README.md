@@ -30,10 +30,12 @@ Custom message and true value as default value:
 gulp.task('default', function () {
 
   gulp.src('test.js')
-      .pipe(prompt.confirm({
-        message: 'Are you ready for Gulp?',
-        default:true
-        }))
+      .pipe(prompt.confirm(
+        {
+          message: 'Are you ready for Gulp?',
+          default: true
+        })
+      )
       .pipe(gulp.dest('dest'));
 
 });

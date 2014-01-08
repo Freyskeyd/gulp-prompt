@@ -44,7 +44,7 @@ gulp.task('default', function () {
 Example Checkbox:
 ```javascript
 var gulp = require('gulp'),
-    prompt = require('./index'),
+    prompt = require('gulp-prompt'),
     _ = require('lodash');
 
 gulp.task('testJS', function () {

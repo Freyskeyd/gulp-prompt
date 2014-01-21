@@ -1,6 +1,6 @@
 {
   "name": "gulp-prompt",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Add interactive console prompts to gulp",
   "main": "index.js",
   "scripts": {
@@ -14,13 +14,11 @@
   "license": "MIT",
   "dependencies": {
     "inquirer": "~0.3.5",
-    "gulp": "~3.2.0",
     "event-stream": "~3.0.20",
     "lodash": "~2.4.1"
   },
   "devDependencies": {
     "inquirer": "~0.3.5",
-    "gulp": "~3.2.0",
     "event-stream": "~3.0.20"
   },
   "directories": {

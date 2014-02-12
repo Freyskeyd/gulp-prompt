@@ -60,7 +60,7 @@ gulp.task('default', function () {
     var tasks = _.chain(gulp.tasks).keys().without('default').value();
     
     gulp.src('gulpfile.js')
-        .pipe(prompt.checkbox('choice', tasks, function (val, file, async) {
+        .pipe(prompt._checkbox('choice', tasks, function (val, file, async) {
             
             gulp.run.apply(gulp, val);
 

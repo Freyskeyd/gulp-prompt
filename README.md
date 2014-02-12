@@ -9,7 +9,7 @@ Default message and false value as default value:
 gulp.task('default', function () {
 
   gulp.src('test.js')
-      .pipe(prompt.confirm())
+      .pipe(prompt._confirm())
       .pipe(gulp.dest('dest'));
 
 });
@@ -20,7 +20,7 @@ Custom message and false value as default value:
 gulp.task('default', function () {
 
   gulp.src('test.js')
-      .pipe(prompt.confirm('Are you ready for Gulp?'))
+      .pipe(prompt._confirm('Are you ready for Gulp?'))
       .pipe(gulp.dest('dest'));
 });
 ```
@@ -30,7 +30,7 @@ Custom message and true value as default value:
 gulp.task('default', function () {
 
   gulp.src('test.js')
-      .pipe(prompt.confirm(
+      .pipe(prompt._confirm(
         {
           message: 'Are you ready for Gulp?',
           default: true
@@ -60,7 +60,7 @@ gulp.task('default', function () {
     var tasks = _.chain(gulp.tasks).keys().without('default').value();
     
     gulp.src('gulpfile.js')
-        .pipe(prompt.checkbox('choice', tasks, function (val, file, async) {
+        .pipe(prompt._checkbox('choice', tasks, function (val, file, async) {
             
             gulp.run.apply(gulp, val);
 

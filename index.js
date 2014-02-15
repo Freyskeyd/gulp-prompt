@@ -30,7 +30,8 @@ module.exports = {
 			var opts = {
 				type: 'confirm',
 				name: 'val',
-				message: 'Are you sure?'
+				message: 'Are you sure?',
+				default: false
 			};
 
 			if(typeof options === 'string'){
@@ -41,7 +42,8 @@ module.exports = {
 				options = {};
 			}
 
-			opts.default = options.default || false;
+			opts.message = options.message || opts.message;
+			opts.default = options.default || opts.default;
 
 			inq.prompt([opts], function(res){
 

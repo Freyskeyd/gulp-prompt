@@ -14,8 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "inquirer": "~0.3.5",
-    "event-stream": "~3.0.20",
-    "lodash": "~2.4.1"
+    "event-stream": "~3.0.20"
   },
   "devDependencies": {
     "inquirer": "~0.3.5",

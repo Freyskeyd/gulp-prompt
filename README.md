@@ -5,8 +5,9 @@ Add interaction to gulp tasks.
 ##.confirm([options])
 
 Options:
-**message:** - Message to be displayed
-**default:** - Default response if none is provided
+
+ - **message:** - Message to be displayed
+ - **default:** - Default response if none is provided
 
 This method will allow the pipe to continue if the user input is true, otherwise, it will be terminated.
 

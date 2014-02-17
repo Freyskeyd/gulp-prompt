@@ -1,69 +1,132 @@
-# Gulp prompt
+#Gulp prompt
 
 Add interaction to gulp tasks.
 
-## Confirm
+##.confirm([options])
 
-Default message and false value as default value:
+Options:
+
+ - **message** - Message to be displayed
+ - **default** - Default response if none is provided
+
+This method will allow the pipe to continue if the user input is true, otherwise, it will be terminated.
+
+Default usage:
 ```javascript
-gulp.task('default', function () {
 
-  gulp.src('test.js')
-      .pipe(prompt.confirm())
-      .pipe(gulp.dest('dest'));
+gulp.src('test.js')
+	.pipe(prompt.confirm())
+	.pipe(gulp.dest('dest'));
 
-});
 ```
 
-Custom message and false value as default value:
+If a string is provided to the options, it will be set as the message:
 ```javascript
-gulp.task('default', function () {
 
-  gulp.src('test.js')
-      .pipe(prompt.confirm('Are you ready for Gulp?'))
-      .pipe(gulp.dest('dest'));
-});
+gulp.src('test.js')
+	.pipe(prompt.confirm('Are you ready for Gulp?'))
+	.pipe(gulp.dest('dest'));
+
 ```
 
-Custom message and true value as default value:
+Example when using options:
 ```javascript
-gulp.task('default', function () {
 
-  gulp.src('test.js')
-      .pipe(prompt.confirm(
-        {
-          message: 'Are you ready for Gulp?',
-          default: true
-        })
-      )
-      .pipe(gulp.dest('dest'));
+gulp.src('test.js')
+	.pipe(prompt.confirm({
+		message: 'Continue?',
+		default: true
+	}))
+	.pipe(gulp.dest('dest'));
 
-});
+```
+
+##.prompt(questions, callback)
+
+This is a clean pass-through function for gulp to utilize the full [Inquirer.js Library](https://github.com/SBoudrias/Inquirer.js), please refer to them for documentation on corresponding parameters.
+
+Please note that all types are avaiable, not just the examples below.
+
+Example Input:
+```javascript
+
+gulp.src('test.js')
+	.pipe(prompt.prompt({
+		type: 'input',
+		name: 'task',
+		message: 'Which task would you like to run?'
+	}, function(res){
+		//value is in res.task (the name option gives the key)
+	}));
+
 ```
 
 Example Checkbox:
 ```javascript
-var gulp = require('gulp'),
-    prompt = require('gulp-prompt'),
-    _ = require('lodash');
 
-gulp.task('testJS', function () {
-    console.log('testJS');
-});
+gulp.src('test.js')
+	.pipe(prompt.prompt({
+		type: 'checkbox',
+		name: 'bump',
+		message: 'What type of bump would you like to do?',
+		choices: ['patch', 'minor', 'major']
+	}, function(res){
+		//value is in res.bump (as an array)
+	}));
 
-gulp.task('testCss', function () {
-    console.log('testCSS');
-});
+```
 
-gulp.task('default', function () {
+Example Password:
+```javascript
 
-    var tasks = _.chain(gulp.tasks).keys().without('default').value();
-    
-    gulp.src('gulpfile.js')
-        .pipe(prompt.checkbox('choice', tasks, function (val, file, async) {
-            
-            gulp.run.apply(gulp, val);
+gulp.src('test.js')
+	.pipe(prompt.prompt({
+		type: 'password',
+		name: 'pass',
+		message: 'Please enter your password'
+	}, function(res){
+		//value is in res.pass
+	}));
 
-        }));
-});
+```
+
+Example Multiple:
+```javascript
+
+gulp.src('test.js')
+	.pipe(prompt.prompt([{
+		type: 'input',
+		name: 'first',
+		message: 'First question?'
+	},
+	{
+		type: 'input',
+		name: 'second',
+		message: 'Second question?'
+	}], function(res){
+		//value is in res.first and res.second
+	}));
+
+```
+
+Example Validation:
+```javascript
+
+gulp.src('test.js')
+	.pipe(prompt.prompt({
+		type: 'password',
+		name: 'pass',
+		message: 'Please enter your password',
+		validate: function(pass){
+
+			if(pass !== '123456'){
+				return false;
+			}
+
+			return true;
+		}
+	}, function(res){
+		//value is in res.pass
+	}));
+
 ```

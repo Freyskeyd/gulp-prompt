@@ -53,5 +53,7 @@ module.exports = {
 
 			});
 		});
-	}
+	},
+	
+	inq: inq
 };

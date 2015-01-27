@@ -4,9 +4,14 @@ var inq = require('inquirer'),
 module.exports = {
 
 	prompt: function(questions, callback){
-
+		var prompted = false;
 		return es.map(function(file, cb){
-
+			
+			if(prompted===true){
+				cb(null,file);
+				return;
+			}
+			
 			if(!questions instanceof Array){
 				questions = [questions];
 			}
@@ -19,14 +24,19 @@ module.exports = {
 				callback(res);
 				cb(null, file);
 			});
-
+			prompted = true;
 		});
 	},
 
 	confirm: function(options){
-
+		var prompted = false;
 		return es.map(function(file, cb){
-
+			
+			if(prompted===true){
+				cb(null,file);
+				return;
+			}
+			
 			var opts = {
 				type: 'confirm',
 				name: 'val',
@@ -52,6 +62,7 @@ module.exports = {
 				}
 
 			});
+			prompted = true;
 		});
 	},
 	

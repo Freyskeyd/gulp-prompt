@@ -1,8 +1,8 @@
-#Gulp prompt
+# Gulp prompt
 
 Add interaction to gulp tasks.
 
-##.confirm([options])
+## .confirm([options])
 
 Options:
 
@@ -41,7 +41,7 @@ gulp.src('test.js')
 
 ```
 
-##.prompt(questions, callback)
+## .prompt(questions, callback)
 
 This is a clean pass-through function for gulp to utilize the full [Inquirer.js Library](https://github.com/SBoudrias/Inquirer.js), please refer to them for documentation on corresponding parameters.
 

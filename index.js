@@ -20,7 +20,7 @@ module.exports = {
 				callback = function(){};
 			}
 
-			inq.prompt(questions, function(res){
+			inq.prompt(questions).then(function(res) {
 				callback(res);
 				cb(null, file);
 			});
@@ -55,7 +55,7 @@ module.exports = {
 			opts.message = options.message || opts.message;
 			opts.default = options.default || opts.default;
 
-			inq.prompt([opts], function(res){
+			inq.prompt([opts]).then(function(res){
 
 				if(res.val){
 					cb(null, file);

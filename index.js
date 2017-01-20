@@ -65,6 +65,45 @@ module.exports = {
 			prompted = true;
 		});
 	},
-	
+	ask: function(options, callback) {
+		var prompted = false;
+		return es.map(function(file, cb) {
+
+			if(prompted === true) {
+				cb(null, file);
+				return;
+			}
+
+			var opts = {
+				type: 'confirm',
+				name : 'val',
+				message: 'yes or no?',
+				default: false
+			};
+
+			if(typeof options === 'string') {
+				opts.message = options;
+			}
+
+			if(typeof options !== 'object') {
+				options = {};
+			}
+
+			opts.message = options.message || opts.message;
+			opts.default = options.default || opts.default;
+
+			if(typeof callback !== 'function'){
+				callback = function(){};
+			}
+
+			inq.prompt([opts], function(res) {
+				callback(res);
+				cb(null, file);
+			});
+
+			prompted = true;
+
+		});
+	},
 	inq: inq
 };

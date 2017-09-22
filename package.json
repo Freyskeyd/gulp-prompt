@@ -13,12 +13,14 @@
   "author": "Simon Paitrault <contact@freyskeyd.fr>",
   "license": "MIT",
   "dependencies": {
-    "inquirer": "1.2.x",
+    "inquirer": "^3.3.0",
     "event-stream": "~3.0.20"
   },
   "devDependencies": {
     "inquirer": "1.2.x",
-    "event-stream": "~3.0.20"
+    "event-stream": "~3.0.20",
+    "mocha":"^3.5.3",
+    "assert":"^1.4.1"
   },
   "directories": {
     "test": "test"

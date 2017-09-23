@@ -29,8 +29,10 @@ module.exports = {
 	},
 
 	confirm: function(options){
+		console.log( 'calling confirm', options);
 		var prompted = false;
 		return es.map(function(file, cb){
+			console.log( 'file ', file);
 			
 			if(prompted===true){
 				cb(null,file);
@@ -55,8 +57,9 @@ module.exports = {
 			opts.message = options.message || opts.message;
 			opts.default = options.default || opts.default;
 
+			console.log( 'inq', 'calling for inq');
 			inq.prompt([opts]).then(function(res){
-
+				console.log( 'inq', 'Received Response ->' + res);
 				if(res.val){
 					cb(null, file);
 				}

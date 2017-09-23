@@ -20,7 +20,10 @@
     "inquirer": "1.2.x",
     "event-stream": "~3.0.20",
     "mocha":"^3.5.3",
-    "assert":"^1.4.1"
+    "assert":"^1.4.1",
+    "proxyquire":"^1.8.0",
+    "gulp":"^3.9.1",
+    "vinyl-source-stream":"^1.1.0"
   },
   "directories": {
     "test": "test"

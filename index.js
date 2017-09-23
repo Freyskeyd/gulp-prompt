@@ -47,6 +47,7 @@ module.exports = {
 			};
 
 			if(typeof options === 'string'){
+				console.log('Options is string', options);
 				opts.message = options;
 			}
 
@@ -57,9 +58,7 @@ module.exports = {
 			opts.message = options.message || opts.message;
 			opts.default = options.default || opts.default;
 
-			console.log( 'inq', 'calling for inq');
 			inq.prompt([opts]).then(function(res){
-				console.log( 'inq', 'Received Response ->' + res);
 				if(res.val){
 					cb(null, file);
 				}

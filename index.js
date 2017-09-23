@@ -6,7 +6,7 @@ module.exports = {
 	prompt: function(questions, callback){
 		var prompted = false;
 		return es.map(function(file, cb){
-			
+			console.log( 'file', f);
 			if(prompted===true){
 				cb(null,file);
 				return;

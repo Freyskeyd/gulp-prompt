@@ -6,10 +6,6 @@ var proxyrequire = require('proxyquire');
 /**
  * The following test spec will design 
  */
-
-//Tests.  Makes sure that if no options passed.  option is created 
-//Tests. That if multiple streams are passed it is only called once.  prompt should be called only once
-
 describe('gulp confirm unit tests', function() {
   describe('verify that confirm function operates correctly', function() {
     it('verify that confirm converts string message to options', function( done ){
@@ -43,7 +39,6 @@ describe('gulp confirm unit tests', function() {
                 }else{
                     done('options convertion not handled');
                 }
-                
             });
         }
 
@@ -110,7 +105,6 @@ describe('gulp confirm unit tests', function() {
         let resp = srcStream.pipe( gulpPrompt.confirm( options ) );
         resp.write('../test.txt');
     });
-
   });
 });
 

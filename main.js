@@ -34,7 +34,7 @@ let options = {
 };
 
 
-let srcStream = source('README.md');
+let srcStream = source('./test/**');
 
 let resp = srcStream.pipe( gulpPrompt.confirm( options ) );
 resp.write('./test.txt');

@@ -6,13 +6,13 @@ module.exports = {
 	prompt: function(questions, callback){
 		var prompted = false;
 		return es.map(function(file, cb){
-			console.log( 'file', f);
 			if(prompted===true){
 				cb(null,file);
 				return;
 			}
-			
+			console.log('start of prompt');
 			if(!questions instanceof Array){
+				console.log( 'Is note array');
 				questions = [questions];
 			}
 
@@ -29,10 +29,8 @@ module.exports = {
 	},
 
 	confirm: function(options){
-		console.log( 'calling confirm', options);
 		var prompted = false;
 		return es.map(function(file, cb){
-			console.log( 'file ', file);
 			
 			if(prompted===true){
 				cb(null,file);
@@ -47,7 +45,6 @@ module.exports = {
 			};
 
 			if(typeof options === 'string'){
-				console.log('Options is string', options);
 				opts.message = options;
 			}
 

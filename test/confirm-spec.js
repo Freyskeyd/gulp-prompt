@@ -4,7 +4,7 @@ var source = require('vinyl-source-stream');
 
 var proxyrequire = require('proxyquire');
 /**
- * The following test spec will design 
+ * The following test spec will verify the operation of the confirm function
  */
 describe('gulp confirm unit tests', function() {
   describe('verify that confirm function operates correctly', function() {

@@ -1,6 +1,6 @@
 'use strict';
 
-//var gulpPrompt = require('./index.js');
+var gulpPrompt = require('./index.js');
 var source = require('vinyl-source-stream');
 var stream = require('stream');
 
@@ -11,7 +11,7 @@ var prompt = function( listOptions ){
         resolve('Got Response');
     });
 }
-var gulpPrompt = proxyrequire('./index.js', {'inquirer':{ prompt: prompt}});
+//var gulpPrompt = proxyrequire('./index.js', {'inquirer':{ prompt: prompt}});
 
 var writeStream = new stream.Writable();
 

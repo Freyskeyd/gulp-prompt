@@ -6,7 +6,7 @@ var proxyrequire = require('proxyquire');
 /**
  * The following test spec will verify the operation of the confirm function
  */
-describe('gulp confirm unit tests', function() {
+describe('gulp confirm function unit tests', function() {
   describe('verify that confirm function operates correctly', function() {
     it('verify that confirm converts string message to options', function( done ){
         var prompt = function( listOptions ){

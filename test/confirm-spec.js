@@ -7,9 +7,6 @@ var proxyrequire = require('proxyquire');
  * The following test spec will design 
  */
 
- //Tests.  Makes sure you only prompt the user once.
-
-//Tests.  Makes sure that if option is string it converts it to message
 //Tests. Makes sure that if default is used, it is used.  If no default then sets
 //Tests.  Makes sure that if no options passed.  option is created 
 //Tests. That if multiple streams are passed it is only called once.  prompt should be called only once
@@ -59,6 +56,32 @@ describe('gulp confirm unit tests', function() {
             name: 'val',
             message: 'Test Message?',
             default: true
+        };
+        let resp = srcStream.pipe( gulpPrompt.confirm( options ) );
+        resp.write('../test.txt');
+    });
+
+    it('verify that confirm sets default message and value if non provided', function( done ){
+        var prompt = function( listOptions ){
+            return new Promise( (resolve,reject)=>{
+                resolve('Test Completed');
+                if( ( Array.isArray( listOptions) ) && (typeof listOptions[0] !== 'string') ){
+                    //The following are defaults
+                    assert.equal( listOptions[0].message, 'Are you sure?' );
+                    assert.equal( listOptions[0].default, false );
+                    done();
+                }else{
+                    done('options defaults not set');
+                }
+            });
+        }
+
+        //Mock inquirer to capture response
+        gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
+        let srcStream = source('../README.md');
+        let options = {
+            type: 'confirm',
+            name: 'val'
         };
         let resp = srcStream.pipe( gulpPrompt.confirm( options ) );
         resp.write('../test.txt');

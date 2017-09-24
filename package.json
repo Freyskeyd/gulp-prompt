@@ -1,10 +1,12 @@
 {
   "name": "gulp-prompt",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Add interactive console prompts to gulp",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "eslint": "./node_modules/.bin/eslint -c eslintrc.json ./**/*.js",
+    "es-watch": "./node_modules/.bin/esw -w -c eslintrc.json ./**/*.js"
   },
   "keywords": [
     "gulpplugin",
@@ -22,7 +24,9 @@
     "mocha":"^3.5.3",
     "assert":"^1.4.1",
     "proxyquire":"^1.8.0",
-    "vinyl-source-stream":"^1.1.0"
+    "vinyl-source-stream":"^1.1.0",
+    "eslint": "^4.7.2",
+    "eslint-watch": "^3.1.2"
   },
   "directories": {
     "test": "test"

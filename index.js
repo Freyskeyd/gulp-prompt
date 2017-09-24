@@ -64,7 +64,7 @@ confirm: function(options){
 		});
 		prompted = true;
 	});
-},
+	},
 
-inq: inq
+	inq: inq
 };

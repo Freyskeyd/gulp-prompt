@@ -22,7 +22,7 @@ describe('gulp confirm function unit tests', function () {
         };
 
         //Mock inquirer to capture response
-        gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
+        let gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
         let srcStream = source('../README.md');
         let resp = srcStream.pipe( gulpPrompt.confirm( 'options string' ) );
         resp.write('../test.txt');
@@ -43,7 +43,7 @@ describe('gulp confirm function unit tests', function () {
         };
 
         //Mock inquirer to capture response
-        gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
+        let gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
         let srcStream = source('../README.md');
         let options = {
             type: 'confirm',
@@ -71,7 +71,7 @@ describe('gulp confirm function unit tests', function () {
         };
 
         //Mock inquirer to capture response
-        gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
+        let gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
         let srcStream = source('../README.md');
         let options = {
             type: 'confirm',
@@ -99,7 +99,7 @@ describe('gulp confirm function unit tests', function () {
         };
 
         //Mock inquirer to capture response
-        gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
+        let gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
         let srcStream = source('../README.md');
         let options;//Intentionally set to not defined
         let resp = srcStream.pipe( gulpPrompt.confirm( options ) );

@@ -137,7 +137,7 @@ gulp.src('test.js')
 ```
 
 Example List Selection:
-
+[Note: see sample file]( examples/list-selection-gulpfile.js)
 ```javascript
 
     gulp.src( './package.json' )

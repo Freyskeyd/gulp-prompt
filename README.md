@@ -135,3 +135,21 @@ gulp.src('test.js')
 	}));
 
 ```
+
+Example List Selection:
+[Note: see sample file]( examples/list-selection-gulpfile.js)
+```javascript
+
+    gulp.src( './package.json' )
+        .pipe( prompt.prompt({
+            type:'list',
+            name:'env',
+            message:'Please enter selection?',
+            choices: ['a','b','c','d','e','f', 'g', 'h'],
+            pageSize:'3'
+        }, (res) => {
+            console.log('Result', res);
+        }) );
+
+```
+

@@ -26,8 +26,7 @@
     "proxyquire":"^1.8.0",
     "vinyl-source-stream":"^1.1.0",
     "eslint": "^4.7.2",
-    "eslint-watch": "^3.1.2",
-    "gulp":"3.9.1"
+    "eslint-watch": "^3.1.2"
   },
   "directories": {
     "test": "test"

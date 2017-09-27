@@ -1,9 +1,9 @@
 # Gulp prompt
 
-# THIS REPOSITORY NEED A NEW MAINTAINER
+# THIS REPOSITORY IS LOOKING FOR ADDITIONAL MAINTAINER(S)
 
-I don't have time to maintain this repository.
-If someone wants to be involved, just drop me an email.
+If you are interested in getting involved please send us an e-mail or open an issue.
+There are a couple of open issues and small clean up projects that we could use some help with.
 
 Add interaction to gulp tasks.
 

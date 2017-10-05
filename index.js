@@ -1,5 +1,6 @@
 var inq = require('inquirer'),
-  es  = require('event-stream');
+  es  = require('event-stream'),
+  template = require("lodash.template");
 
 module.exports = {
 
@@ -51,6 +52,11 @@ module.exports = {
 
       if (typeof options !== 'object') {
         options = {};
+      }
+
+      if( options.templateOptions !== 'undefined'){
+        var compiled = template( options.message );
+        options.message = compiled( options.templateOptions);
       }
 
       opts.message = options.message || opts.message;

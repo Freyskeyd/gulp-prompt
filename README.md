@@ -153,3 +153,21 @@ Example List Selection:
 
 ```
 
+Example Templating:
+This was a fix to the issue #8 (https://github.com/Freyskeyd/gulp-prompt/issues/8)
+[Note: see sample file]( examples/template-replacement-gulpfile.js)
+```javascript
+
+    return gulp.src( './package.json' )
+        .pipe( prompt.confirm({
+            type:'input',
+            name:'env',
+            message:'Hello <%= user %>, please enter selection?',
+            templateOptions:{ 'user': 'fred' }
+        }, (res) => {
+            console.log('Result', res);
+        }) );
+
+
+```
+

@@ -135,3 +135,39 @@ gulp.src('test.js')
 	}));
 
 ```
+
+Example List Selection:
+[Note: see sample file]( examples/list-selection-gulpfile.js)
+```javascript
+
+    gulp.src( './package.json' )
+        .pipe( prompt.prompt({
+            type:'list',
+            name:'env',
+            message:'Please enter selection?',
+            choices: ['a','b','c','d','e','f', 'g', 'h'],
+            pageSize:'3'
+        }, (res) => {
+            console.log('Result', res);
+        }) );
+
+```
+
+Example Templating:
+This was a fix to the issue #8 (https://github.com/Freyskeyd/gulp-prompt/issues/8)
+[Note: see sample file]( examples/template-replacement-gulpfile.js)
+```javascript
+
+    return gulp.src( './package.json' )
+        .pipe( prompt.confirm({
+            type:'input',
+            name:'env',
+            message:'Hello <%= user %>, please enter selection?',
+            templateOptions:{ 'user': 'fred' }
+        }, (res) => {
+            console.log('Result', res);
+        }) );
+
+
+```
+

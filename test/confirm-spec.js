@@ -22,7 +22,7 @@ describe('gulp confirm function unit tests', function () {
         };
 
         //Mock inquirer to capture response
-        gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
+        let gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
         let srcStream = source('../README.md');
         let resp = srcStream.pipe( gulpPrompt.confirm( 'options string' ) );
         resp.write('../test.txt');
@@ -43,7 +43,7 @@ describe('gulp confirm function unit tests', function () {
         };
 
         //Mock inquirer to capture response
-        gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
+        let gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
         let srcStream = source('../README.md');
         let options = {
             type: 'confirm',
@@ -71,7 +71,7 @@ describe('gulp confirm function unit tests', function () {
         };
 
         //Mock inquirer to capture response
-        gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
+        let gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
         let srcStream = source('../README.md');
         let options = {
             type: 'confirm',
@@ -99,10 +99,92 @@ describe('gulp confirm function unit tests', function () {
         };
 
         //Mock inquirer to capture response
-        gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
+        let gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
         let srcStream = source('../README.md');
         let options;//Intentionally set to not defined
         let resp = srcStream.pipe( gulpPrompt.confirm( options ) );
+        resp.write('../test.txt');
+    });
+
+    it('verify that lodash templates replacement works', function ( done ){
+        var prompt = function ( listOptions ){
+            return new Promise( (resolve,reject) => {
+                resolve('Test Completed');
+                if( Array.isArray( listOptions)  && typeof listOptions[0] !== 'string' ){
+                    assert.equal( listOptions[0].message, 'hello fred! what is your choice?' );
+                    done();
+                }else{
+                    console.log( 'Failed test');
+                    done('options defaults not set');
+                }
+            });
+        };
+
+        //Mock inquirer to capture response
+        let gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
+        let srcStream = source('../README.md');
+        let options = {
+            type: 'confirm',
+            name: 'val',
+            message: 'hello <%= user %>! what is your choice?',
+            templateOptions:{ 'user': 'fred' }
+        };
+        let resp = srcStream.pipe( gulpPrompt.confirm( options ) );
+        console.log('Executing test');
+        resp.write('../test.txt');
+    });
+
+    it('verify that lodash templates is only called when template options are defined', function ( done ){
+        var prompt = function ( listOptions ){
+            return new Promise( (resolve,reject) => {
+                resolve('Test Completed');
+                if( Array.isArray( listOptions)  && typeof listOptions[0] !== 'string' ){
+                    assert.equal( listOptions[0].message, 'hello <%= user %>! what is your choice?' );
+                    done();
+                }else{
+                    console.log( 'Failed test');
+                    done('options defaults not set');
+                }
+            });
+        };
+
+        //Mock inquirer to capture response
+        let gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
+        let srcStream = source('../README.md');
+        let options = {
+            type: 'confirm',
+            name: 'val',
+            message: 'hello <%= user %>! what is your choice?'
+        };
+        let resp = srcStream.pipe( gulpPrompt.confirm( options ) );
+        resp.write('../test.txt');
+    });
+
+    it('verify that lodash templates replacement works for two fields', function ( done ){
+        var prompt = function ( listOptions ){
+            return new Promise( (resolve,reject) => {
+                resolve('Test Completed');
+                if( Array.isArray( listOptions)  && typeof listOptions[0] !== 'string' ){
+                    assert.equal( listOptions[0].message, 'hello fred! what is today your choice?' );
+                    done();
+                }else{
+                    console.log( 'Failed test');
+                    done('options defaults not set');
+                }
+            });
+        };
+
+        //Mock inquirer to capture response
+        let gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
+        let srcStream = source('../README.md');
+        let options = {
+            type: 'confirm',
+            name: 'val',
+            message: 'hello <%= user %>! what is <%= date %> your choice?',
+            templateOptions:{ 'user': 'fred', 'date':'today' }
+        };
+        let resp = srcStream.pipe( gulpPrompt.confirm( options ) );
+        console.log('Executing test');
         resp.write('../test.txt');
     });
   });

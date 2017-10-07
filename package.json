@@ -1,6 +1,6 @@
 {
   "name": "gulp-prompt",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Add interactive console prompts to gulp",
   "main": "index.js",
   "scripts": {
@@ -15,18 +15,19 @@
   "author": "Simon Paitrault <contact@freyskeyd.fr>",
   "license": "MIT",
   "dependencies": {
+    "event-stream": "~3.0.20",
     "inquirer": "^3.3.0",
-    "event-stream": "~3.0.20"
+    "lodash.template":"^4.4.0"
   },
   "devDependencies": {
-    "inquirer": "1.2.x",
-    "event-stream": "~3.0.20",
-    "mocha":"^3.5.3",
-    "assert":"^1.4.1",
-    "proxyquire":"^1.8.0",
-    "vinyl-source-stream":"^1.1.0",
+    "assert": "^1.4.1",
     "eslint": "^4.7.2",
-    "eslint-watch": "^3.1.2"
+    "eslint-watch": "^3.1.2",
+    "event-stream": "~3.0.20",
+    "inquirer": "1.2.x",
+    "mocha": "^3.5.3",
+    "proxyquire": "^1.8.0",
+    "vinyl-source-stream": "^1.1.0"
   },
   "directories": {
     "test": "test"

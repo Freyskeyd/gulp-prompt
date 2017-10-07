@@ -157,7 +157,6 @@ describe('gulp confirm function unit tests', function () {
             message: 'hello <%= user %>! what is your choice?'
         };
         let resp = srcStream.pipe( gulpPrompt.confirm( options ) );
-        console.log('Executing test');
         resp.write('../test.txt');
     });
   });

@@ -54,7 +54,7 @@ module.exports = {
         options = {};
       }
 
-      if( options.templateOptions !== 'undefined'){
+      if( typeof options.templateOptions !== 'undefined'){
         var compiled = template( options.message );
         options.message = compiled( options.templateOptions);
       }

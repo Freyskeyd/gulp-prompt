@@ -6,7 +6,8 @@ var prompt = require('../index');
 /**
  * The following is a sample gulp file for using replacement from the command prompt
  * Note: This replacement function is only available on the confirm operation.  
- * This is based on lodash template module
+ * This is uses lodash template module and does a basic replacement of one or more 
+ * variables
  * 
  * https://www.npmjs.com/package/lodash.template
  */

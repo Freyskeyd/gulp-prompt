@@ -15,8 +15,7 @@ gulp.task( 'selectFirst',  () => {
             type:'list',
             name:'env',
             message:'Please enter selection?',
-            choices: ['First','Second','Third'],
-            pageSize:'3'
+            choices: ['First','Second','Third']
         }, (res) => {
             console.log('Result', res);
         }) );

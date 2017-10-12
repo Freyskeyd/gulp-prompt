@@ -1,7 +1,7 @@
 var inq = require('inquirer'),
   es  = require('event-stream'),
   template = require("lodash.template"),
-  sequence = require(;
+  pipeline = require('promise-sequence/lib/pipeline');
 
 module.exports = {
 
@@ -97,29 +97,39 @@ module.exports = {
         default: false
       };
 
-      if (Array.isArray( confirmOptions)) {
-        opts.message = options;
+      var first = function( options ){
+        console.log( 'First function');
+        return inq.prompt([options]);
       }
 
-      if (typeof options !== 'object') {
-        options = {};
+      var second = function( val ){
+        console.log( 'Second function', val );
+        var opts2 = {
+          type: 'confirm',
+          name: 'val',
+          message: 'Are you sure?',
+          default: false
+        };
+        return inq.prompt([opts2]);
       }
 
-      if( typeof options.templateOptions !== 'undefined'){
-        var compiled = template( options.message );
-        options.message = compiled( options.templateOptions);
-      }
-
-      opts.message = options.message || opts.message;
-      opts.default = options.default || opts.default;
-
-      inq.prompt([opts]).then(function(res) {
-
+      var final = function( rst ){
         if (res.val) {
           cb(null, file);
         }
+      }
 
-      });
+      var tasks = [ first, second];
+
+      pipeline( tasks, opts ).then(function(res) {
+        
+                if (res.val) {
+                  cb(null, file);
+                }
+        
+              });
+
+
 
       prompted = true;
     });

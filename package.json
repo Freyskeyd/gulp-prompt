@@ -17,7 +17,8 @@
   "dependencies": {
     "event-stream": "~3.0.20",
     "inquirer": "^3.3.0",
-    "lodash.template":"^4.4.0"
+    "lodash.template":"^4.4.0",
+    "promise-sequence":"^0.2.3"
   },
   "devDependencies": {
     "assert": "^1.4.1",

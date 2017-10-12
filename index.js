@@ -1,6 +1,7 @@
 var inq = require('inquirer'),
   es  = require('event-stream'),
-  template = require("lodash.template");
+  template = require("lodash.template"),
+  sequence = require(;
 
 module.exports = {
 
@@ -47,6 +48,56 @@ module.exports = {
       };
 
       if (typeof options === 'string') {
+        opts.message = options;
+      }
+
+      if (typeof options !== 'object') {
+        options = {};
+      }
+
+      if( typeof options.templateOptions !== 'undefined'){
+        var compiled = template( options.message );
+        options.message = compiled( options.templateOptions);
+      }
+
+      opts.message = options.message || opts.message;
+      opts.default = options.default || opts.default;
+
+      inq.prompt([opts]).then(function(res) {
+
+        if (res.val) {
+          cb(null, file);
+        }
+
+      });
+
+      prompted = true;
+    });
+  },
+
+  /**
+   * The following method is used for chaining multiple prompts 
+   * together in a list.  The function requires an array of objects
+   * which each object 
+   */
+  confirmChain: function(confirmOptions) {
+    var prompted = false;
+    var self = this;
+    return es.map(function(file, cb) {
+
+      if (prompted === true) {
+        cb(null,file);
+        return;
+      }
+
+      var opts = {
+        type: 'confirm',
+        name: 'val',
+        message: 'Are you sure?',
+        default: false
+      };
+
+      if (Array.isArray( confirmOptions)) {
         opts.message = options;
       }
 

@@ -80,9 +80,14 @@ module.exports = {
    * together in a list.  The function requires an array of objects
    * which each object 
    */
+
+   //https://github.com/snowyu/promise-sequence.js/blob/master/src/pipeline.js
+   //Look at incorporating this behaviour.
+   //Need to call at end of each function
+   //Ideally pass a function and this function will return a list
   confirmChain: function(confirmOptions) {
     var prompted = false;
-    var self = this;
+    let self = this;
     return es.map(function(file, cb) {
 
       if (prompted === true) {
@@ -97,8 +102,14 @@ module.exports = {
         default: false
       };
 
-      var first = function( options ){
-        console.log( 'First function');
+      var first = function( bb ){
+        var options = {
+          type: 'confirm',
+          name: 'val',
+          message: 'Are you sure?',
+          default: false
+        };
+        console.log( 'First function', bb);
         return inq.prompt([options]);
       }
 
@@ -121,13 +132,16 @@ module.exports = {
 
       var tasks = [ first, second];
 
-      pipeline( tasks, opts ).then(function(res) {
+      console.log('About to call chain', opts);
+      return pipeline( tasks, opts, self ).then(function(res) {
+        console.log('Completed calling'); 
+        if (res.val) {
+          cb(null, file);
+        }
         
-                if (res.val) {
-                  cb(null, file);
-                }
-        
-              });
+      }).catch( err => {
+        console.log('Error',err);
+      });
 
 
 

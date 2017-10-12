@@ -1,6 +1,6 @@
 {
   "name": "gulp-prompt",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Add interactive console prompts to gulp",
   "main": "index.js",
   "scripts": {

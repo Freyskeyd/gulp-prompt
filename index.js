@@ -79,12 +79,9 @@ module.exports = {
    * The following method is used for chaining multiple prompts 
    * together in a list.  The function requires an array of objects
    * which each object 
+   * @param {object} confirmOptions - Must have a chainFunction or will just re-route to 
+   * confirm funciton
    */
-
-   //https://github.com/snowyu/promise-sequence.js/blob/master/src/pipeline.js
-   //Look at incorporating this behaviour.
-   //Need to call at end of each function
-   //Ideally pass a function and this function will return a list
   confirmChain: function(confirmOptions) {
     var prompted = false;
     let self = this;
@@ -96,41 +93,34 @@ module.exports = {
         return;
       }
 
-      var opts = {
-        type: 'confirm',
-        name: 'val',
-        message: 'Are you sure?',
-        default: false
-      };
-
-      /**
-       * If returns undefined will stop processing the function
-       * @param {objects} options 
-       * @param {objects} params - parameters from previous call 
-       */
-      var first = function( options, params ){
-        console.log( 'here are parms', params);
-        console.log( 'here are options', options);
-        if( index++ >= 3){
-          console.log( 'Completed ');
-          return;
-        }
-        console.log( 'Not done ', index);
-        return options;
+      let chainFunction;
+      if( typeof confirmOptions.chainFunction !== 'undefined' && typeof confirmOptions.chainFunction === "funciton" ){
+        chainFunction = confirmOptions.chainFunction;
+      }else{
+        return self.confirm( confirmOptions );
       }
 
-      var handler = function( options, params ){
+      /**
+       * The following function will call the inquirer prompt function and if successful 
+       * it will then call the chainFunction.  If the chain function returns an object
+       * it will be passed to the handler which will then pass it o inquirer prompt function
+       * If the chain function returns undefined it will stop processing and exit.  
+       * The chain function all the user to define  a function that will keep requesting data
+       * from the inquirer prompt so long as options are returned from the chain function
+       * @param {objects} options 
+       */
+      var handler = function( options ){
 
         return new Promise( (resolve,reject)=>{
-          console.log( 'First function', params);
+          //console.log( 'First function', params);
             inq.prompt([options]).then( resp =>{
-              let opts = first( options, resp );
+              let opts = chainFunction( options );
               if( typeof opts === 'undefined'){
-                console.log( 'Rst is undefined.  Stopping');
+                //console.log( 'Rst is undefined.  Stopping');
                 return resolve('response');
               }else{
-                console.log( 'rst is not undefined.  Proceeding');
-                handler( opts, resp );
+                //console.log( 'rst is not undefined.  Proceeding');
+                handler( opts );
               }
             }).catch( err =>{
               console.log('Unexpected error',err);
@@ -140,9 +130,6 @@ module.exports = {
 
       }
 
-      
-
-      console.log('About to call chain', opts);
       return handler( opts, {} ).then(function(res) {
         console.log('Completed calling', res); 
         if (res.val) {
@@ -153,8 +140,6 @@ module.exports = {
         console.log('Error in final handler',err);
         cb(null, file);
       });
-
-
 
       prompted = true;
     });

@@ -88,6 +88,7 @@ module.exports = {
   confirmChain: function(confirmOptions) {
     var prompted = false;
     let self = this;
+    let index = 0;
     return es.map(function(file, cb) {
 
       if (prompted === true) {
@@ -102,45 +103,55 @@ module.exports = {
         default: false
       };
 
-      var first = function( bb ){
-        var options = {
-          type: 'confirm',
-          name: 'val',
-          message: 'Are you sure?',
-          default: false
-        };
-        console.log( 'First function', bb);
-        return inq.prompt([options]);
-      }
-
-      var second = function( val ){
-        console.log( 'Second function', val );
-        var opts2 = {
-          type: 'confirm',
-          name: 'val',
-          message: 'Are you sure?',
-          default: false
-        };
-        return inq.prompt([opts2]);
-      }
-
-      var final = function( rst ){
-        if (res.val) {
-          cb(null, file);
+      /**
+       * If returns undefined will stop processing the function
+       * @param {objects} options 
+       * @param {objects} params - parameters from previous call 
+       */
+      var first = function( options, params ){
+        console.log( 'here are parms', params);
+        console.log( 'here are options', options);
+        if( index++ >= 3){
+          console.log( 'Completed ');
+          return;
         }
+        console.log( 'Not done ', index);
+        return options;
       }
 
-      var tasks = [ first, second];
+      var handler = function( options, params ){
+
+        return new Promise( (resolve,reject)=>{
+          console.log( 'First function', params);
+            inq.prompt([options]).then( resp =>{
+              let opts = first( options, resp );
+              if( typeof opts === 'undefined'){
+                console.log( 'Rst is undefined.  Stopping');
+                return resolve('response');
+              }else{
+                console.log( 'rst is not undefined.  Proceeding');
+                handler( opts, resp );
+              }
+            }).catch( err =>{
+              console.log('Unexpected error',err);
+              reject( 'Unexpected Error');
+            });
+        });
+
+      }
+
+      
 
       console.log('About to call chain', opts);
-      return pipeline( tasks, opts, self ).then(function(res) {
-        console.log('Completed calling'); 
+      return handler( opts, {} ).then(function(res) {
+        console.log('Completed calling', res); 
         if (res.val) {
           cb(null, file);
         }
         
       }).catch( err => {
-        console.log('Error',err);
+        console.log('Error in final handler',err);
+        cb(null, file);
       });
 
 

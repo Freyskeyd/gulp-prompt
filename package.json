@@ -17,8 +17,8 @@
   "dependencies": {
     "event-stream": "~3.0.20",
     "inquirer": "^3.3.0",
-    "lodash.template":"^4.4.0",
-    "promise-sequence":"^0.2.3"
+    "lodash.template": "^4.4.0",
+    "promise-sequence": "^0.2.3"
   },
   "devDependencies": {
     "assert": "^1.4.1",
@@ -29,7 +29,7 @@
     "mocha": "^3.5.3",
     "proxyquire": "^1.8.0",
     "vinyl-source-stream": "^1.1.0",
-    "gulp":"3.9.1"
+    "gulp": "3.9.1"
   },
   "directories": {
     "test": "test"

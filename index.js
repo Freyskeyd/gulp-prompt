@@ -81,6 +81,11 @@ module.exports = {
    * which each object 
    * @param {object} confirmOptions - Must have a chainFunction or will just re-route to 
    * confirm funciton
+   * 
+   * TODO: 
+   * 1. implement example gulp file which will merge this 
+   * 2. Complete proper unit testing
+   * 3. Merge this functionality back into the confirm function
    */
   confirmChain: function(confirmOptions) {
     var prompted = false;

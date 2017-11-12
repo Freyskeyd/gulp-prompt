@@ -19,3 +19,6 @@ Example:
 
 3. Templating option for messages
 `examples/template-replacement-gulpfile.js`
+
+4. Chain a series of prompts together 
+`examples/chain-confirm-gulpfile.js`

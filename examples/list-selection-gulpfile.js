@@ -13,7 +13,7 @@ var prompt = require('../index');
  * https://github.com/SBoudrias/Inquirer.js#questions
  */
 gulp.task( 'getSelection',  () => {
-    return gulp.src( './package.json' )
+    return gulp.src( '../package.json' )
         .pipe( prompt.prompt({
             type:'list',
             name:'env',

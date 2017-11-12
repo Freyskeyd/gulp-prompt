@@ -1,7 +1,6 @@
 var inq = require('inquirer'),
   es  = require('event-stream'),
-  template = require("lodash.template"),
-  pipeline = require('promise-sequence/lib/pipeline');
+  template = require("lodash.template");
 
 module.exports = {
 

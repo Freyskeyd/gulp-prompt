@@ -20,7 +20,6 @@ var chainFunction = function ( options ){
  * allow the user to chain multiple requests together
  * variables
  * 
- * https://www.npmjs.com/package/lodash.template
  */
 gulp.task( 'chainConfirm',  () => {
     return gulp.src( '../package.json' )

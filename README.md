@@ -1,7 +1,5 @@
 # Gulp prompt
 
-# THIS REPOSITORY IS LOOKING FOR ADDITIONAL MAINTAINER(S)
-
 If you are interested in getting involved please send us an e-mail or open an issue.
 There are a couple of open issues and small clean up projects that we could use some help with.
 
@@ -167,7 +165,37 @@ This was a fix to the issue #8 (https://github.com/Freyskeyd/gulp-prompt/issues/
         }, (res) => {
             console.log('Result', res);
         }) );
+```
 
+Example Chaining Prompts:
+This was a fix to the issue #35 (https://github.com/Freyskeyd/gulp-prompt/issues/35)
+This was a fix to the issue #34 (https://github.com/Freyskeyd/gulp-prompt/issues/34)
+[Note: see sample file]( examples/chain-confirm-gulpfile.js)
+```javascript
 
+	var index =0;
+
+	var chainFunction = function ( options, resp ){
+		console.log( 'Here is the selection ', resp);
+		if( index <= 3){
+			options.message = `Hello this is iteration ${index}`;
+			index++;
+			return options;
+		}else{
+			return;
+		}
+	};
+
+	gulp.task( 'chainConfirm',  () => {
+		return gulp.src( '../package.json' )
+			.pipe( prompt.confirm({
+				type:'input',
+				name:'env',
+				message:'Hello First interation, please enter selection?',
+				chainFunction:chainFunction
+			}, (res) => {
+				console.log('Result', res);
+			}) );
+	});
 ```
 

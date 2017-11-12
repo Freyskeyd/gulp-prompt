@@ -12,7 +12,7 @@ var prompt = require('../index');
  * https://www.npmjs.com/package/lodash.template
  */
 gulp.task( 'getConfirmWithReplacement',  () => {
-    return gulp.src( './package.json' )
+    return gulp.src( '../package.json' )
         .pipe( prompt.confirm({
             type:'input',
             name:'env',

@@ -9,7 +9,7 @@ var prompt = require('../index');
  * (https://github.com/Freyskeyd/gulp-prompt/issues/27)
  */
 gulp.task( 'selectFirst',  () => {
-    return gulp.src( './package.json' )
+    return gulp.src( '../package.json' )
         .pipe( prompt.prompt({
             type:'list',
             name:'env',

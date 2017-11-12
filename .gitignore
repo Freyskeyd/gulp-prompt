@@ -3,3 +3,4 @@ node_modules/
 test.js
 gulpfile.js
 npm-debug.log
+package-lock.json

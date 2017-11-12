@@ -3,6 +3,8 @@
 If you are interested in getting involved please send us an e-mail or open an issue.
 There are a couple of open issues and small clean up projects that we could use some help with.
 
+<a href="https://codeclimate.com/github/shannonlal/gulp-prompt/maintainability"><img src="https://api.codeclimate.com/v1/badges/b9e10756dc89eb1d7c19/maintainability" /></a>
+
 Add interaction to gulp tasks.
 
 ## .confirm([options])

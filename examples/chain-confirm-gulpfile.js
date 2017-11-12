@@ -4,7 +4,8 @@ var gulp = require( 'gulp' );
 var prompt = require('../index');
 var index =0;
 
-var chainFunction = function ( options ){
+var chainFunction = function ( options, resp ){
+    console.log( 'Here is the selection ', resp);
     if( index <= 3){
         options.message = `Hello this is iteration ${index}`;
         index++;

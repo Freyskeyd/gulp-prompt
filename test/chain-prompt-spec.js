@@ -31,8 +31,9 @@ describe('gulp chain prompt unit tests', function () {
             });
         };
 
-        var chainFunction = function ( opts ){
+        var chainFunction = function ( opts, resp ){
             console.log('Chain Function called');
+            console.log( 'Response', resp);
             assert.equal( opts, options );
         };
         let index = 0;

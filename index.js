@@ -58,7 +58,7 @@ module.exports = {
         
         return new Promise( (resolve,reject)=>{
             inq.prompt([options]).then( resp =>{
-              let opts = chainFunction( options );
+              let opts = chainFunction( options, resp );
               if( typeof opts === 'undefined'){
                 return resolve('response');
               }else{

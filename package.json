@@ -27,8 +27,7 @@
     "inquirer": "1.2.x",
     "mocha": "^3.5.3",
     "proxyquire": "^1.8.0",
-    "vinyl-source-stream": "^1.1.0",
-    "gulp": "3.9.1"
+    "vinyl-source-stream": "^1.1.0"
   },
   "directories": {
     "test": "test"

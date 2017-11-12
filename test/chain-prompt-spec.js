@@ -20,8 +20,36 @@ describe('gulp chain prompt unit tests', function () {
         //Mock inquirer to capture response
         gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
         let srcStream = source('../README.md');
-        var func = function (){};
-        let resp = srcStream.pipe( gulpPrompt.confirmChain( ['options string'], func ) );
+        let resp = srcStream.pipe( gulpPrompt.confirm( ['options string'] ) );
+        resp.write('../test.txt');
+    });
+
+    it('verify that chain function gets called correctly', function ( ){
+        var prompt = function ( questions ){
+            return new Promise( (resolve,reject) => {
+                resolve('completed prompt');
+            });
+        };
+
+        var chainFunction = function ( opts ){
+            console.log('Chain Function called');
+            assert.equal( opts, options );
+        };
+        let index = 0;
+        let options = {
+            type: 'confirm',
+            name: 'val',
+            message: 'Test Message?',
+            default: true,
+            chainFunction: chainFunction
+        };
+
+
+        //Mock inquirer to capture response
+        gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
+        let srcStream = source('../README.md');
+        
+        let resp = srcStream.pipe( gulpPrompt.confirm( options ) );
         resp.write('../test.txt');
     });
   });

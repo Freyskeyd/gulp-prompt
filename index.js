@@ -39,7 +39,7 @@ module.exports = {
 
   confirm: function(options) {
     var prompted = false;
-    let chainFunction;
+    var chainFunction;
     return es.map(function(file, cb) {
 
       if (prompted === true) {
@@ -57,7 +57,7 @@ module.exports = {
         
         return new Promise( (resolve,reject)=>{
             inq.prompt([options]).then( resp =>{
-              let opts = chainFunction( options, resp );
+              var opts = chainFunction( options, resp );
               if( typeof opts === 'undefined'){
                 return resolve('response');
               }else{

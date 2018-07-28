@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Added first prod release since there are now outstanding issues  @shannonlal
 
+## [1.1.0] - 2018-07-28
+### Added
+- Added chaining support to prompt function  @shannonlal
+
 ## [0.6.0] - 2017-11-12
 ### Added
 - Added code climate integration to monitor code quality in project  @shannonlal

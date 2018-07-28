@@ -6,11 +6,11 @@ var proxyrequire = require('proxyquire');
 /**
  * The following test spec will verify the operation of the chain prompt function
  */
-describe('gulp chain prompt unit tests', function () {
+describe('gulp chain confirm unit tests', function () {
   describe('verify that chain prompt function operates correctly', function () {
     
 
-    it('verify that chain prompt does not convert questions to array if already an array', function ( ){
+    it('verify that chain confirm does not convert questions to array if already an array', function ( ){
         var prompt = function ( questions ){
             return new Promise( (resolve,reject) => {
                 resolve('completed prompt');
@@ -20,7 +20,7 @@ describe('gulp chain prompt unit tests', function () {
         //Mock inquirer to capture response
         gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
         let srcStream = source('../README.md');
-        let resp = srcStream.pipe( gulpPrompt.prompt( ['options string'] ) );
+        let resp = srcStream.pipe( gulpPrompt.confirm( ['options string'] ) );
         resp.write('../test.txt');
     });
 
@@ -37,7 +37,7 @@ describe('gulp chain prompt unit tests', function () {
             assert.equal( opts, options );
         };
         let index = 0;
-        let questions = {
+        let options = {
             type: 'confirm',
             name: 'val',
             message: 'Test Message?',
@@ -50,7 +50,7 @@ describe('gulp chain prompt unit tests', function () {
         gulpPrompt = proxyrequire('../index.js', {'inquirer':{ prompt: prompt}});
         let srcStream = source('../README.md');
         
-        let resp = srcStream.pipe( gulpPrompt.prompt( questions ) );
+        let resp = srcStream.pipe( gulpPrompt.confirm( options ) );
         resp.write('../test.txt');
     });
   });

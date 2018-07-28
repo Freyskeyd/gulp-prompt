@@ -15,6 +15,28 @@ module.exports = {
     var prompted = false;
     return es.map(function(file, cb) {
 
+      /**
+       * The following chainHandler was designed to be called recursively so as to allow
+       * users the ability to chain multple calls to inquirer together.  It will stop 
+       * calls to the chain handler when the chain function returns undefined.
+       * @param {objects} options 
+       */
+      var chainHandler = function( options ){
+        
+        return new Promise( (resolve,reject)=>{
+            inq.prompt([options]).then( resp =>{
+              let opts = chainFunction( options, resp );
+              if( typeof opts === 'undefined'){
+                return resolve('response');
+              }else{
+                chainHandler( opts );
+              }
+            }).catch( err =>{
+              reject( 'Unexpected Error');
+            });
+        });
+      }
+
       if (prompted === true) {
         cb(null,file);
         return;
@@ -27,13 +49,25 @@ module.exports = {
       if (typeof callback !== 'function') {
         callback = function(){};
       }
+      if( typeof questions.chainFunction === 'undefined' ){
+        inq.prompt(questions).then(function(res) {
+          callback(res);
+          cb(null, file);
+        });
 
-      inq.prompt(questions).then(function(res) {
-        callback(res);
-        cb(null, file);
-      });
-
-      prompted = true;
+        prompted = true;
+      }else{
+        chainFunction = questions.chainFunction;
+        return chainHandler( questions ).then(function(res) {
+          if (res.val) {
+            cb(null, file);
+          }
+        }).catch( err => {
+          cb(null, file);
+        });
+  
+        prompted = true;
+      }
     });
   },
 

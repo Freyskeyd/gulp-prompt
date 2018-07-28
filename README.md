@@ -201,3 +201,33 @@ This was a fix to the issue #34 (https://github.com/Freyskeyd/gulp-prompt/issues
 	});
 ```
 
+This was a fix to the issue #60 (https://github.com/Freyskeyd/gulp-prompt/issues/60)
+[Note: see sample file]( examples/chain-prompt-gulpfile.js)
+```javascript
+
+	var index =0;
+
+	var chainFunction = function ( options, resp ){
+		console.log( 'Here is the selection ', resp);
+		if( index <= 3){
+			options.message = `Hello this is iteration ${index}`;
+			index++;
+			return options;
+		}else{
+			return;
+		}
+	};
+
+	gulp.task( 'chainConfirm',  () => {
+		return gulp.src( '../package.json' )
+			.pipe( prompt.prompt({
+				type:'input',
+				name:'env',
+				message:'Hello First interation, please enter selection?',
+				chainFunction:chainFunction
+			}, (res) => {
+				console.log('Result', res);
+			}) );
+	});
+```
+

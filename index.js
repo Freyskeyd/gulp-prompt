@@ -137,7 +137,7 @@ module.exports = {
       }else{
         chainFunction = options.chainFunction;
         return chainHandler( opts ).then(function(res) {
-          if (res.val) {
+          if (res) {
             cb(null, file);
           }
         }).catch( err => {

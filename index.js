@@ -6,7 +6,7 @@ module.exports = {
 
   /**
    * The following method will act as a proxy to the inquirer
-   * prompt function.  It will pass the questions object directly to 
+   * prompt function.  It will pass the questions object directly to
    * inqurier's prompt function
    * @param {*} questions
    * @param {*} callback
@@ -17,19 +17,23 @@ module.exports = {
 
       /**
        * The following chainHandler was designed to be called recursively so as to allow
-       * users the ability to chain multple calls to inquirer together.  It will stop 
+       * users the ability to chain multple calls to inquirer together.  It will stop
        * calls to the chain handler when the chain function returns undefined.
-       * @param {objects} options 
+       * @param {objects} options
        */
       var chainHandler = function( options ){
-        
+
         return new Promise( (resolve,reject)=>{
             inq.prompt([options]).then( resp =>{
               let opts = chainFunction( options, resp );
               if( typeof opts === 'undefined'){
                 return resolve('response');
               }else{
-                chainHandler( opts );
+                chainHandler( opts ).then( () => {
+                  return resolve('response');
+                }).catch( () =>{
+	                reject( 'Unexpected Error');
+                });
               }
             }).catch( err =>{
               reject( 'Unexpected Error');
@@ -59,13 +63,13 @@ module.exports = {
       }else{
         chainFunction = questions.chainFunction;
         return chainHandler( questions ).then(function(res) {
-          if (res.val) {
+          if (res) {
             cb(null, file);
           }
         }).catch( err => {
           cb(null, file);
         });
-  
+
         prompted = true;
       }
     });
@@ -83,19 +87,23 @@ module.exports = {
 
       /**
        * The following chainHandler was designed to be called recursively so as to allow
-       * users the ability to chain multple calls to inquirer together.  It will stop 
+       * users the ability to chain multple calls to inquirer together.  It will stop
        * calls to the chain handler when the chain function returns undefined.
-       * @param {objects} options 
+       * @param {objects} options
        */
       var chainHandler = function( options ){
-        
+
         return new Promise( (resolve,reject)=>{
             inq.prompt([options]).then( resp =>{
               var opts = chainFunction( options, resp );
               if( typeof opts === 'undefined'){
                 return resolve('response');
               }else{
-                chainHandler( opts );
+                chainHandler( opts ).then( () =>{
+                  return resolve('response');
+                }).catch( () =>{
+	                reject( 'Unexpected Error');
+                });
               }
             }).catch( err =>{
               reject( 'Unexpected Error');
@@ -128,7 +136,7 @@ module.exports = {
 
       if( typeof options.chainFunction === 'undefined'){
         inq.prompt([opts]).then(function(res) {
-          
+
           if (res.val) {
             cb(null, file);
           }
@@ -137,13 +145,13 @@ module.exports = {
       }else{
         chainFunction = options.chainFunction;
         return chainHandler( opts ).then(function(res) {
-          if (res.val) {
+          if (res) {
             cb(null, file);
           }
         }).catch( err => {
           cb(null, file);
         });
-  
+
         prompted = true;
       }
     });

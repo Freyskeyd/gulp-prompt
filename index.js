@@ -29,7 +29,7 @@ module.exports = {
               if( typeof opts === 'undefined'){
                 return resolve('response');
               }else{
-                chainHandler( opts );
+                return chainHandler( opts );
               }
             }).catch( err =>{
               reject( 'Unexpected Error');
